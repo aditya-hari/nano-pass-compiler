@@ -1,0 +1,804 @@
+racket run-tests.rkt
+testing @ utilities.rkt:2077
+prog-file-name:
+"./tests/tfun_test_8.rkt"
+
+
+compile-file: output of type check @ utilities.rkt:2084
+tsexp:
+functions:
+(define (multiply [a : Integer] [b : Integer]) : Integer
+
+   (let ([x a])
+      (begin 
+         (while (> b 1)
+            (begin 
+               (set! x
+                  (+ x a))
+               (set! b
+                  (- b 1))))
+         x))
+)
+program:
+(multiply 4 5)
+
+
+compiling, running pass: shrink @ utilities.rkt:2097
+
+shrink output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply [a : Integer] [b : Integer]) : Integer
+
+   (let ([x a])
+      (begin 
+         (while (let ([g41110 b])
+                   (< 1 g41110))
+            (begin 
+               (set! x
+                  (+ x a))
+               (set! b
+                  (+ b (- 1)))))
+         x))
+)
+
+(define (main) : Integer
+
+   (multiply 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: uniquify @ utilities.rkt:2097
+
+uniquify output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 b41113])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (+ x41114 a41112))
+               (set! b41113
+                  (+ b41113 (- 1)))))
+         x41114))
+)
+
+(define (main) : Integer
+
+   (multiply41111 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: reveal functions @ utilities.rkt:2097
+
+reveal functions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 b41113])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (+ x41114 a41112))
+               (set! b41113
+                  (+ b41113 (- 1)))))
+         x41114))
+)
+
+(define (main) : Integer
+
+   ((fun-ref multiply41111 2) 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: limit functions @ utilities.rkt:2097
+
+limit functions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 b41113])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (+ x41114 a41112))
+               (set! b41113
+                  (+ b41113 (- 1)))))
+         x41114))
+)
+
+(define (main) : Integer
+
+   ((fun-ref multiply41111 2) 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: expose allocation @ utilities.rkt:2097
+
+expose allocation output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 b41113])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (+ x41114 a41112))
+               (set! b41113
+                  (+ b41113 (- 1)))))
+         x41114))
+)
+
+(define (main) : Integer
+
+   ((fun-ref multiply41111 2) 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: uncover-get! @ utilities.rkt:2097
+
+uncover-get! output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 (get! b41113)])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (+ (get! x41114) a41112))
+               (set! b41113
+                  (+ (get! b41113) (- 1)))))
+         (get! x41114)))
+)
+
+(define (main) : Integer
+
+   ((fun-ref multiply41111 2) 4 5)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: remove complex opera* @ utilities.rkt:2097
+
+remove complex opera* output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+
+   (let ([x41114 a41112])
+      (begin 
+         (while (let ([g4111041115 b41113])
+                   (< 1 g4111041115))
+            (begin 
+               (set! x41114
+                  (let ([g41120 x41114])
+                     (+ g41120 a41112)))
+               (set! b41113
+                  (let ([g41122 b41113])
+                     (let ([g41125 (- 1)])
+                        (+ g41122 g41125))))))
+         x41114))
+)
+
+(define (main) : Integer
+
+   (let ([g41126 (fun-ref multiply41111 2)])
+      (g41126 4 5))
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: explicate control @ utilities.rkt:2097
+
+explicate control output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111 [a41112 : Integer] [b41113 : Integer]) : Integer
+locals:
+'(x41114 g41122 g41125 g41120 g4111041115)
+
+   multiply41111start:
+      x41114 = a41112;
+      goto loop41129;
+   loop41129:
+      g4111041115 = b41113;
+      if (< 1 g4111041115)
+         goto block41130;
+      else
+         goto block41131;
+   block41131:
+      return x41114;
+   block41130:
+      g41120 = x41114;
+      x41114 = (+ g41120 a41112);
+      g41122 = b41113;
+      g41125 = (- 1);
+      b41113 = (+ g41122 g41125);
+      goto loop41129;
+   
+)
+
+(define (main) : Integer
+locals:
+'(g41126)
+
+   mainstart:
+      g41126 = (fun-ref multiply41111 2);
+      (tail-call g41126 4 5)
+   
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: instruction selection @ utilities.rkt:2097
+
+instruction selection output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111) : Integer
+locals-types:
+    a41112 : 'Integer, b41113 : 'Integer, g41125 : 'Integer, a41112 : 'Integer, g41122 : 'Integer, g41120 : 'Integer, b41113 : 'Integer, x41114 : 'Integer, g4111041115 : 'Integer, 
+num-params:
+2
+
+   multiply41111start:
+      movq %rdi, a41112
+      movq %rsi, b41113
+      movq a41112, x41114
+      jmp loop41129
+      
+   loop41129:
+      movq b41113, g4111041115
+      cmpq g4111041115, $1
+      jl block41130
+      jmp block41131
+      
+   block41131:
+      movq x41114, %rax
+      jmp multiply41111conclusion
+      
+   block41130:
+      movq x41114, g41120
+      movq g41120, x41114
+      addq a41112, x41114
+      movq b41113, g41122
+      movq $1, g41125
+      negq g41125
+      movq g41122, b41113
+      addq g41125, b41113
+      jmp loop41129
+      
+   
+)
+
+(define (main) : Integer
+locals-types:
+    g41126 : '(Integer Integer -> Integer), 
+num-params:
+0
+
+   mainstart:
+      leaq multiply41111(%rip), g41126
+      movq $4, %rdi
+      movq $5, %rsi
+      tail-jmp g41126
+      
+   
+)
+
+
+
+
+compiling, running pass: uncover live @ utilities.rkt:2097
+
+uncover live output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111) : Integer
+locals-types:
+    a41112 : 'Integer, b41113 : 'Integer, g41125 : 'Integer, a41112 : 'Integer, g41122 : 'Integer, g41120 : 'Integer, b41113 : 'Integer, x41114 : 'Integer, g4111041115 : 'Integer, 
+num-params:
+2
+
+   multiply41111start:
+      live:
+(list
+ (set 'rdi 'rsi 'rsp)
+ (set 'rsi 'a41112 'rsp)
+ (set 'a41112 'b41113 'rsp)
+ (set 'b41113 'x41114 'rsp))
+movq %rdi, a41112
+movq %rsi, b41113
+movq a41112, x41114
+jmp loop41129
+
+   loop41129:
+      live:
+(list
+ (set 'b41113 'x41114 'rsp)
+ (set 'x41114 'g4111041115 'rsp)
+ (set 'x41114 'rsp)
+ (set 'a41112 'b41113 'x41114 'rsp))
+movq b41113, g4111041115
+cmpq g4111041115, $1
+jl block41130
+jmp block41131
+
+   block41130:
+      live:
+(list
+ (set 'a41112 'b41113 'x41114 'rsp)
+ (set 'a41112 'b41113 'g41120 'rsp)
+ (set 'a41112 'b41113 'x41114 'rsp)
+ (set 'b41113 'x41114 'rsp)
+ (set 'g41122 'x41114 'rsp)
+ (set 'g41122 'g41125 'x41114 'rsp)
+ (set 'g41122 'g41125 'x41114 'rsp)
+ (set 'g41125 'b41113 'x41114 'rsp)
+ (set 'b41113 'x41114 'rsp))
+movq x41114, g41120
+movq g41120, x41114
+addq a41112, x41114
+movq b41113, g41122
+movq $1, g41125
+negq g41125
+movq g41122, b41113
+addq g41125, b41113
+jmp loop41129
+
+   block41131:
+      live:
+(list (set 'x41114 'rsp) (set 'rax 'rsp))
+movq x41114, %rax
+jmp multiply41111conclusion
+
+   
+)
+
+(define (main) : Integer
+locals-types:
+    g41126 : '(Integer Integer -> Integer), 
+num-params:
+0
+
+   mainstart:
+      live:
+(list
+ (set 'rax 'rsp)
+ (set 'rax 'g41126 'rsp)
+ (set 'rax 'rdi 'g41126 'rsp)
+ (set 'rax 'rdi 'rsi 'g41126 'rsp)
+ (set))
+leaq multiply41111(%rip), g41126
+movq $4, %rdi
+movq $5, %rsi
+tail-jmp g41126
+
+   
+)
+
+
+
+
+compiling, running pass: build interference @ utilities.rkt:2097
+
+build interference output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111) : Integer
+locals-types:
+    a41112 : 'Integer, b41113 : 'Integer, g41125 : 'Integer, a41112 : 'Integer, g41122 : 'Integer, g41120 : 'Integer, b41113 : 'Integer, x41114 : 'Integer, g4111041115 : 'Integer, 
+num-params:
+2
+conflicts:
+#<unweighted-graph>
+
+   multiply41111start:
+      live:
+(list
+ (set 'rdi 'rsi 'rsp)
+ (set 'rsi 'a41112 'rsp)
+ (set 'a41112 'b41113 'rsp)
+ (set 'b41113 'x41114 'rsp))
+movq %rdi, a41112
+movq %rsi, b41113
+movq a41112, x41114
+jmp loop41129
+
+   loop41129:
+      live:
+(list
+ (set 'b41113 'x41114 'rsp)
+ (set 'x41114 'g4111041115 'rsp)
+ (set 'x41114 'rsp)
+ (set 'a41112 'b41113 'x41114 'rsp))
+movq b41113, g4111041115
+cmpq g4111041115, $1
+jl block41130
+jmp block41131
+
+   block41130:
+      live:
+(list
+ (set 'a41112 'b41113 'x41114 'rsp)
+ (set 'a41112 'b41113 'g41120 'rsp)
+ (set 'a41112 'b41113 'x41114 'rsp)
+ (set 'b41113 'x41114 'rsp)
+ (set 'g41122 'x41114 'rsp)
+ (set 'g41122 'g41125 'x41114 'rsp)
+ (set 'g41122 'g41125 'x41114 'rsp)
+ (set 'g41125 'b41113 'x41114 'rsp)
+ (set 'b41113 'x41114 'rsp))
+movq x41114, g41120
+movq g41120, x41114
+addq a41112, x41114
+movq b41113, g41122
+movq $1, g41125
+negq g41125
+movq g41122, b41113
+addq g41125, b41113
+jmp loop41129
+
+   block41131:
+      live:
+(list (set 'x41114 'rsp) (set 'rax 'rsp))
+movq x41114, %rax
+jmp multiply41111conclusion
+
+   
+)
+
+(define (main) : Integer
+locals-types:
+    g41126 : '(Integer Integer -> Integer), 
+num-params:
+0
+conflicts:
+#<unweighted-graph>
+
+   mainstart:
+      live:
+(list
+ (set 'rax 'rsp)
+ (set 'rax 'g41126 'rsp)
+ (set 'rax 'rdi 'g41126 'rsp)
+ (set 'rax 'rdi 'rsi 'g41126 'rsp)
+ (set))
+leaq multiply41111(%rip), g41126
+movq $4, %rdi
+movq $5, %rsi
+tail-jmp g41126
+
+   
+)
+
+
+
+
+compiling, running pass: allocate register @ utilities.rkt:2097
+
+allocate register output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111) : Integer
+num-params:
+2
+spill:
+0
+num-root-spills:
+0
+callee:
+'()
+
+   multiply41111start:
+      movq %rdi, %rcx
+      movq %rsi, %rsi
+      movq %rcx, %rdx
+      jmp loop41129
+      
+   loop41129:
+      movq %rsi, %rcx
+      cmpq %rcx, $1
+      jl block41130
+      jmp block41131
+      
+   block41130:
+      movq %rdx, %rdx
+      movq %rdx, %rdx
+      addq %rcx, %rdx
+      movq %rsi, %rsi
+      movq $1, %rcx
+      negq %rcx
+      movq %rsi, %rsi
+      addq %rcx, %rsi
+      jmp loop41129
+      
+   block41131:
+      movq %rdx, %rax
+      jmp multiply41111conclusion
+      
+   
+)
+
+(define (main) : Integer
+num-params:
+0
+spill:
+0
+num-root-spills:
+0
+callee:
+'(rbx)
+
+   mainstart:
+      leaq multiply41111(%rip), %rbx
+      movq $4, %rdi
+      movq $5, %rsi
+      tail-jmp %rbx
+      
+   
+)
+
+
+
+
+compiling, running pass: patch instructions @ utilities.rkt:2097
+
+patch instructions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (multiply41111) : Integer
+num-params:
+2
+spill:
+0
+num-root-spills:
+0
+callee:
+'()
+
+   multiply41111start:
+      movq %rdi, %rcx
+      movq %rcx, %rdx
+      jmp loop41129
+      
+   loop41129:
+      movq %rsi, %rcx
+      movq $1, %rax
+      cmpq %rcx, %rax
+      jl block41130
+      jmp block41131
+      
+   block41130:
+      addq %rcx, %rdx
+      movq $1, %rcx
+      negq %rcx
+      addq %rcx, %rsi
+      jmp loop41129
+      
+   block41131:
+      movq %rdx, %rax
+      jmp multiply41111conclusion
+      
+   
+)
+
+(define (main) : Integer
+num-params:
+0
+spill:
+0
+num-root-spills:
+0
+callee:
+'(rbx)
+
+   mainstart:
+      leaq multiply41111(%rip), %rbx
+      movq $4, %rdi
+      movq $5, %rsi
+      movq %rbx, %rax
+      tail-jmp %rax
+      
+   
+)
+
+
+
+
+compiling, running pass: prelude-and-conclusion @ utilities.rkt:2097
+
+prelude-and-conclusion output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+program:
+multiply41111conclusion:
+    subq $0, %r15
+    addq $0, %rsp
+    popq %rbp
+    retq
+    
+multiply41111:
+    pushq %rbp
+    movq %rsp, %rbp
+    subq $0, %rsp
+    jmp multiply41111start
+    
+multiply41111start:
+    movq %rdi, %rcx
+    movq %rcx, %rdx
+    jmp loop41129
+    
+loop41129:
+    movq %rsi, %rcx
+    movq $1, %rax
+    cmpq %rcx, %rax
+    jl block41130
+    jmp block41131
+    
+block41130:
+    addq %rcx, %rdx
+    movq $1, %rcx
+    negq %rcx
+    addq %rcx, %rsi
+    jmp loop41129
+    
+block41131:
+    movq %rdx, %rax
+    jmp multiply41111conclusion
+    
+mainconclusion:
+    subq $0, %r15
+    addq $8, %rsp
+    popq %rbx
+    popq %rbp
+    retq
+    
+main:
+    pushq %rbp
+    movq %rsp, %rbp
+    subq $8, %rsp
+    pushq %rbx
+    movq $16384, %rdi
+    movq $16384, %rsi
+    callq initialize
+    movq rootstack_begin(%rip), %r15
+    addq $0, %r15
+    jmp mainstart
+    
+mainstart:
+    leaq multiply41111(%rip), %rbx
+    movq $4, %rdi
+    movq $5, %rsi
+    movq %rbx, %rax
+    subq $0, %r15
+    addq $8, %rsp
+    popq %rbx
+    popq %rbp
+    jmp *%rax
+    
+
+
+
+x86 output:
+	.align 8
+multiply41111conclusion:
+	subq	$0, %r15
+	addq	$0, %rsp
+	popq	%rbp
+	retq
+
+	.align 8
+multiply41111:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$0, %rsp
+	jmp multiply41111start
+
+	.align 8
+multiply41111start:
+	movq	%rdi, %rcx
+	movq	%rcx, %rdx
+	jmp loop41129
+
+	.align 8
+loop41129:
+	movq	%rsi, %rcx
+	movq	$1, %rax
+	cmpq	%rcx, %rax
+	jl block41130
+	jmp block41131
+
+	.align 8
+block41130:
+	addq	%rcx, %rdx
+	movq	$1, %rcx
+	negq	%rcx
+	addq	%rcx, %rsi
+	jmp loop41129
+
+	.align 8
+block41131:
+	movq	%rdx, %rax
+	jmp multiply41111conclusion
+
+	.align 8
+mainconclusion:
+	subq	$0, %r15
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	retq
+
+	.globl main
+	.align 8
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$8, %rsp
+	pushq	%rbx
+	movq	$16384, %rdi
+	movq	$16384, %rsi
+	callq	initialize
+	movq	rootstack_begin(%rip), %r15
+	addq	$0, %r15
+	jmp mainstart
+
+	.align 8
+mainstart:
+	leaq	multiply41111(%rip), %rbx
+	movq	$4, %rdi
+	movq	$5, %rsi
+	movq	%rbx, %rax
+	subq	$0, %r15
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	jmp *%rax
+
+
+1

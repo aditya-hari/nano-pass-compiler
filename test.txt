@@ -1,0 +1,1081 @@
+M1 MacOSX detected
+racket run-tests.rkt
+testing @ utilities.rkt:2077
+prog-file-name:
+"./tests/tfunctions_test_8.rkt"
+
+
+compile-file: output of type check @ utilities.rkt:2084
+tsexp:
+functions:
+(define (mult [a : Integer] [b : Integer]) : Integer
+
+   (let ([x a])
+      (begin 
+         (while (> b 1)
+            (begin 
+               (set! x
+                  (+ x a))
+               (set! b
+                  (- b 1))))
+         x))
+)
+program:
+(mult 2 3)
+
+
+compiling, running pass: shrink @ utilities.rkt:2097
+
+shrink output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult [a : Integer] [b : Integer]) : Integer
+
+   (let ([x a])
+      (begin 
+         (while (let ([g55229 b])
+                   (< 1 g55229))
+            (begin 
+               (set! x
+                  (+ x a))
+               (set! b
+                  (+ b (- 1)))))
+         x))
+)
+
+(define (main) : Integer
+
+   (mult 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: uniquify @ utilities.rkt:2097
+
+uniquify output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 b55232])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (+ x55233 a55231))
+               (set! b55232
+                  (+ b55232 (- 1)))))
+         x55233))
+)
+
+(define (main) : Integer
+
+   (mult55230 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: uncover get @ utilities.rkt:2097
+
+uncover get output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 (get! b55232)])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (+ (get! x55233) a55231))
+               (set! b55232
+                  (+ (get! b55232) (- 1)))))
+         (get! x55233)))
+)
+
+(define (main) : Integer
+
+   (mult55230 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: reveal functions @ utilities.rkt:2097
+
+reveal functions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 (get! b55232)])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (+ (get! x55233) a55231))
+               (set! b55232
+                  (+ (get! b55232) (- 1)))))
+         (get! x55233)))
+)
+
+(define (main) : Integer
+
+   ((fun-ref mult55230 2) 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: limit functions @ utilities.rkt:2097
+
+limit functions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 (get! b55232)])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (+ (get! x55233) a55231))
+               (set! b55232
+                  (+ (get! b55232) (- 1)))))
+         (get! x55233)))
+)
+
+(define (main) : Integer
+
+   ((fun-ref mult55230 2) 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: expose-allocation @ utilities.rkt:2097
+
+expose-allocation output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 (get! b55232)])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (+ (get! x55233) a55231))
+               (set! b55232
+                  (+ (get! b55232) (- 1)))))
+         (get! x55233)))
+)
+
+(define (main) : Integer
+
+   ((fun-ref mult55230 2) 2 3)
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: remove complex opera* @ utilities.rkt:2097
+
+remove complex opera* output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+
+   (let ([x55233 a55231])
+      (begin 
+         (while (let ([g5522955234 b55232])
+                   (< 1 g5522955234))
+            (begin 
+               (set! x55233
+                  (let ([g55237 x55233])
+                     (+ g55237 a55231)))
+               (set! b55232
+                  (let ([g55238 b55232])
+                     (let ([g55239 (- 1)])
+                        (+ g55238 g55239))))))
+         x55233))
+)
+
+(define (main) : Integer
+
+   (let ([g55240 (fun-ref mult55230 2)])
+      (g55240 2 3))
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: explicate control @ utilities.rkt:2097
+
+explicate control output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230 [a55231 : Integer] [b55232 : Integer]) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+
+   mult55230start:
+      x55233 = a55231;
+      goto loop55241;
+   loop55241:
+      g5522955234 = b55232;
+      if (< 1 g5522955234)
+         goto block55242;
+      else
+         goto block55243;
+   block55243:
+      return x55233;
+   block55242:
+      g55237 = x55233;
+      x55233 = (+ g55237 a55231);
+      g55238 = b55232;
+      g55239 = (- 1);
+      b55232 = (+ g55238 g55239);
+      goto loop55241;
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+
+   mainstart:
+      g55240 = (fun-ref mult55230 2);
+      (tail-call g55240 2 3)
+   
+)
+
+
+
+
+type checking... @ utilities.rkt:2103
+
+compiling, running pass: instruction selection @ utilities.rkt:2097
+
+instruction selection output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+
+   mult55230start:
+      movq %rdi, a55231
+      movq %rsi, b55232
+      movq a55231, x55233
+      jmp loop55241
+      
+   loop55241:
+      movq b55232, g5522955234
+      cmpq g5522955234, $1
+      jl block55242
+      jmp block55243
+      
+   block55243:
+      movq x55233, %rax
+      jmp mult55230conclusion
+      
+   block55242:
+      movq x55233, g55237
+      movq g55237, x55233
+      addq a55231, x55233
+      movq b55232, g55238
+      movq $1, g55239
+      negq g55239
+      movq g55238, b55232
+      addq g55239, b55232
+      jmp loop55241
+      
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+
+   mainstart:
+      leaq mult55230(%rip), g55240
+      movq $2, %rdi
+      movq $3, %rsi
+      tail-jmp g55240
+      
+   
+)
+
+
+
+
+compiling, running pass: build cfg @ utilities.rkt:2097
+
+build cfg output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+cfg:
+#<unweighted-graph>
+
+   mult55230start:
+      movq %rdi, a55231
+      movq %rsi, b55232
+      movq a55231, x55233
+      jmp loop55241
+      
+   loop55241:
+      movq b55232, g5522955234
+      cmpq g5522955234, $1
+      jl block55242
+      jmp block55243
+      
+   block55243:
+      movq x55233, %rax
+      jmp mult55230conclusion
+      
+   block55242:
+      movq x55233, g55237
+      movq g55237, x55233
+      addq a55231, x55233
+      movq b55232, g55238
+      movq $1, g55239
+      negq g55239
+      movq g55238, b55232
+      addq g55239, b55232
+      jmp loop55241
+      
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+cfg:
+#<unweighted-graph>
+
+   mainstart:
+      leaq mult55230(%rip), g55240
+      movq $2, %rdi
+      movq $3, %rsi
+      tail-jmp g55240
+      
+   
+)
+
+
+
+
+compiling, running pass: uncover live @ utilities.rkt:2097
+
+uncover live output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash
+ 'block55242
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'block55243
+ (set 'x55233 'rsp)
+ 'loop55241
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'mult55230conclusion
+ (set 'rax 'rsp)
+ 'mult55230start
+ (set 'rdi 'rsi 'rsp))
+
+   mult55230start:
+      live-vars:
+(list
+ (set 'rsi 'a55231 'rsp)
+ (set 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %rdi, a55231
+movq %rsi, b55232
+movq a55231, x55233
+jmp loop55241
+
+   loop55241:
+      live-vars:
+(list
+ (set 'a55231 'b55232 'x55233 'g5522955234 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'x55233 'rsp)
+ (set))
+movq b55232, g5522955234
+cmpq g5522955234, $1
+jl block55242
+jmp block55243
+
+   block55243:
+      live-vars:
+(list (set 'rax 'rsp) (set))
+movq x55233, %rax
+jmp mult55230conclusion
+
+   block55242:
+      live-vars:
+(list
+ (set 'g55237 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'g55238 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55239 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq x55233, g55237
+movq g55237, x55233
+addq a55231, x55233
+movq b55232, g55238
+movq $1, g55239
+negq g55239
+movq g55238, b55232
+addq g55239, b55232
+jmp loop55241
+
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash 'mainconclusion (set 'rax 'rsp) 'mainstart (set 'rax 'rsp))
+
+   mainstart:
+      live-vars:
+(list
+ (set 'rax 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsi 'rsp)
+ (set))
+leaq mult55230(%rip), g55240
+movq $2, %rdi
+movq $3, %rsi
+tail-jmp g55240
+
+   
+)
+
+
+
+
+compiling, running pass: build interference graph @ utilities.rkt:2097
+
+build interference graph output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash
+ 'block55242
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'block55243
+ (set 'x55233 'rsp)
+ 'loop55241
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'mult55230conclusion
+ (set 'rax 'rsp)
+ 'mult55230start
+ (set 'rdi 'rsi 'rsp))
+conflicts:
+#<unweighted-graph>
+
+   mult55230start:
+      live-vars:
+(list
+ (set 'rsi 'a55231 'rsp)
+ (set 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %rdi, a55231
+movq %rsi, b55232
+movq a55231, x55233
+jmp loop55241
+
+   loop55241:
+      live-vars:
+(list
+ (set 'a55231 'b55232 'x55233 'g5522955234 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'x55233 'rsp)
+ (set))
+movq b55232, g5522955234
+cmpq g5522955234, $1
+jl block55242
+jmp block55243
+
+   block55243:
+      live-vars:
+(list (set 'rax 'rsp) (set))
+movq x55233, %rax
+jmp mult55230conclusion
+
+   block55242:
+      live-vars:
+(list
+ (set 'g55237 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'g55238 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55239 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq x55233, g55237
+movq g55237, x55233
+addq a55231, x55233
+movq b55232, g55238
+movq $1, g55239
+negq g55239
+movq g55238, b55232
+addq g55239, b55232
+jmp loop55241
+
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash 'mainconclusion (set 'rax 'rsp) 'mainstart (set 'rax 'rsp))
+conflicts:
+#<unweighted-graph>
+
+   mainstart:
+      live-vars:
+(list
+ (set 'rax 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsi 'rsp)
+ (set))
+leaq mult55230(%rip), g55240
+movq $2, %rdi
+movq $3, %rsi
+tail-jmp g55240
+
+   
+)
+
+
+
+
+compiling, running pass: allocate registers @ utilities.rkt:2097
+
+allocate registers output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash
+ 'block55242
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'block55243
+ (set 'x55233 'rsp)
+ 'loop55241
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'mult55230conclusion
+ (set 'rax 'rsp)
+ 'mult55230start
+ (set 'rdi 'rsi 'rsp))
+conflicts:
+#<unweighted-graph>
+spill-count:
+0
+used-callee:
+(set 'rbx 'r12)
+num-root-spills:
+0
+
+   mult55230start:
+      live-vars:
+(list
+ (set 'rsi 'a55231 'rsp)
+ (set 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %rdi, %rbx
+movq %rsi, %r9
+movq %rbx, %r10
+jmp loop55241
+
+   loop55241:
+      live-vars:
+(list
+ (set 'a55231 'b55232 'x55233 'g5522955234 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'x55233 'rsp)
+ (set))
+movq %r9, %r9
+cmpq %r9, $1
+jl block55242
+jmp block55243
+
+   block55243:
+      live-vars:
+(list (set 'rax 'rsp) (set))
+movq %r10, %rax
+jmp mult55230conclusion
+
+   block55242:
+      live-vars:
+(list
+ (set 'g55237 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'g55238 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55239 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %r10, %r10
+movq %r10, %r10
+addq %rbx, %r10
+movq %r9, %r9
+movq $1, %r12
+negq %r12
+movq %r9, %r9
+addq %r12, %r9
+jmp loop55241
+
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash 'mainconclusion (set 'rax 'rsp) 'mainstart (set 'rax 'rsp))
+conflicts:
+#<unweighted-graph>
+spill-count:
+0
+used-callee:
+(set 'rbx)
+num-root-spills:
+0
+
+   mainstart:
+      live-vars:
+(list
+ (set 'rax 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsi 'rsp)
+ (set))
+leaq mult55230(%rip), %rbx
+movq $2, %rdi
+movq $3, %rsi
+tail-jmp %rbx
+
+   
+)
+
+
+
+
+compiling, running pass: patch instructions @ utilities.rkt:2097
+
+patch instructions output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+functions:
+(define (mult55230) : Integer
+locals:
+'(g55239 g55238 g55237 g5522955234 x55233)
+locals-types:
+    g55239 : 'Integer, g55238 : 'Integer, g55237 : 'Integer, g5522955234 : 'Integer, x55233 : 'Integer, b55232 : 'Integer, a55231 : 'Integer, a55231 : 'Integer, b55232 : 'Integer, 
+num-params:
+2
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash
+ 'block55242
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'block55243
+ (set 'x55233 'rsp)
+ 'loop55241
+ (set 'a55231 'b55232 'x55233 'rsp)
+ 'mult55230conclusion
+ (set 'rax 'rsp)
+ 'mult55230start
+ (set 'rdi 'rsi 'rsp))
+conflicts:
+#<unweighted-graph>
+spill-count:
+0
+used-callee:
+(set 'rbx 'r12)
+num-root-spills:
+0
+
+   mult55230start:
+      live-vars:
+(list
+ (set 'rsi 'a55231 'rsp)
+ (set 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %rdi, %rbx
+movq %rsi, %r9
+movq %rbx, %r10
+jmp loop55241
+
+   loop55241:
+      live-vars:
+(list
+ (set 'a55231 'b55232 'x55233 'g5522955234 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'x55233 'rsp)
+ (set))
+movq $1, %rax
+cmpq %r9, %rax
+jl block55242
+jmp block55243
+
+   block55243:
+      live-vars:
+(list (set 'rax 'rsp) (set))
+movq %r10, %rax
+jmp mult55230conclusion
+
+   block55242:
+      live-vars:
+(list
+ (set 'g55237 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'g55238 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55239 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+addq %rbx, %r10
+movq $1, %r12
+negq %r12
+addq %r12, %r9
+jmp loop55241
+
+   
+)
+
+(define (main) : Integer
+locals:
+'(g55240)
+locals-types:
+    g55240 : '(Integer Integer -> Integer), 
+num-params:
+0
+cfg:
+#<unweighted-graph>
+labels->live:
+(hash 'mainconclusion (set 'rax 'rsp) 'mainstart (set 'rax 'rsp))
+conflicts:
+#<unweighted-graph>
+spill-count:
+0
+used-callee:
+(set 'rbx)
+num-root-spills:
+0
+
+   mainstart:
+      live-vars:
+(list
+ (set 'rax 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsi 'rsp)
+ (set))
+leaq mult55230(%rip), %rbx
+movq $2, %rdi
+movq $3, %rsi
+movq %rbx, %rax
+tail-jmp %rax
+
+   
+)
+
+
+
+
+compiling, running pass: prelude-and-conclusion @ utilities.rkt:2097
+
+prelude-and-conclusion output:  @ utilities.rkt:2101
+(strip-has-type new-p^):
+program:
+mult55230start:
+    live-vars:
+(list
+ (set 'rsi 'a55231 'rsp)
+ (set 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+movq %rdi, %rbx
+movq %rsi, %r9
+movq %rbx, %r10
+jmp loop55241
+
+loop55241:
+    live-vars:
+(list
+ (set 'a55231 'b55232 'x55233 'g5522955234 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'x55233 'rsp)
+ (set))
+movq $1, %rax
+cmpq %r9, %rax
+jl block55242
+jmp block55243
+
+block55243:
+    live-vars:
+(list (set 'rax 'rsp) (set))
+movq %r10, %rax
+jmp mult55230conclusion
+
+block55242:
+    live-vars:
+(list
+ (set 'g55237 'a55231 'b55232 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set 'g55238 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55238 'g55239 'a55231 'x55233 'rsp)
+ (set 'g55239 'a55231 'b55232 'x55233 'rsp)
+ (set 'a55231 'b55232 'x55233 'rsp)
+ (set))
+addq %rbx, %r10
+movq $1, %r12
+negq %r12
+addq %r12, %r9
+jmp loop55241
+
+mult55230:
+    pushq %rbp
+    movq %rsp, %rbp
+    pushq %r12
+    pushq %rbx
+    subq $0, %rsp
+    addq $0, %r15
+    jmp mult55230start
+    
+mult55230conclusion:
+    subq $0, %r15
+    addq $0, %rsp
+    popq %rbx
+    popq %r12
+    popq %rbp
+    retq
+    
+mainstart:
+    live-vars:
+(list
+ (set 'rax 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsp)
+ (set 'rax 'rdi 'g55240 'rsi 'rsp)
+ (set))
+leaq mult55230(%rip), %rbx
+movq $2, %rdi
+movq $3, %rsi
+movq %rbx, %rax
+subq $0, %r15
+addq $8, %rsp
+popq %rbx
+popq %rbp
+jmp *%rax
+
+main:
+    pushq %rbp
+    movq %rsp, %rbp
+    pushq %rbx
+    subq $8, %rsp
+    movq $16384, %rdi
+    movq $16384, %rsi
+    callq initialize
+    movq rootstack_begin(%rip), %r15
+    addq $0, %r15
+    jmp mainstart
+    
+mainconclusion:
+    subq $0, %r15
+    addq $8, %rsp
+    popq %rbx
+    popq %rbp
+    retq
+    
+
+
+
+x86 output:
+	.align 8
+_mult55230start:
+	movq	%rdi, %rbx
+	movq	%rsi, %r9
+	movq	%rbx, %r10
+	jmp _loop55241
+
+	.align 8
+_loop55241:
+	movq	$1, %rax
+	cmpq	%r9, %rax
+	jl _block55242
+	jmp _block55243
+
+	.align 8
+_block55243:
+	movq	%r10, %rax
+	jmp _mult55230conclusion
+
+	.align 8
+_block55242:
+	addq	%rbx, %r10
+	movq	$1, %r12
+	negq	%r12
+	addq	%r12, %r9
+	jmp _loop55241
+
+	.align 8
+_mult55230:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	pushq	%r12
+	pushq	%rbx
+	subq	$0, %rsp
+	addq	$0, %r15
+	jmp _mult55230start
+
+	.align 8
+_mult55230conclusion:
+	subq	$0, %r15
+	addq	$0, %rsp
+	popq	%rbx
+	popq	%r12
+	popq	%rbp
+	retq
+
+	.align 8
+_mainstart:
+	leaq	_mult55230(%rip), %rbx
+	movq	$2, %rdi
+	movq	$3, %rsi
+	movq	%rbx, %rax
+	subq	$0, %r15
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	jmp *%rax
+
+	.globl _main
+	.align 8
+_main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	pushq	%rbx
+	subq	$8, %rsp
+	movq	$16384, %rdi
+	movq	$16384, %rsi
+	callq	_initialize
+	movq	_rootstack_begin(%rip), %r15
+	addq	$0, %r15
+	jmp _mainstart
+
+	.align 8
+_mainconclusion:
+	subq	$0, %r15
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	retq
+
+
+1
